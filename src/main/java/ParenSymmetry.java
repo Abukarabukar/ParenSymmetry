@@ -1,11 +1,23 @@
 package src.main.java;
-
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
 public class ParenSymmetry {
-
-
     private Boolean isBalanced(String s) {
         // implement this method
-        return null;
+        int count = 0;
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
+                count++;
+            } else if (c == ')') {
+                count--;
+                if (count < 0) // More closing than opening
+                    return false;
+
+
+
+               return null;
     }
 
     private void checkFile(String filename) {
