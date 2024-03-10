@@ -1,33 +1,41 @@
-package src.main.java;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
+
 public class ParenSymmetry {
+
+
     private Boolean isBalanced(String s) {
-        // implement this method
-        int count = 0;
-        for (char c : s.toCharArray()) {
-            if (c == '(') {
-                count++;
-            } else if (c == ')') {
-                count--;
-                if (count < 0) // More closing than opening
-                    return false;
+        int balance = 0;
 
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
 
+            if (ch == '(') {
+                balance++;
+            }
+            else if (ch == ')') {
+                balance--;
+            }
 
-               return null;
+            if (balance < 0) {
+                return false;
+            }
+        }
+        return balance == 0;
     }
 
     private void checkFile(String filename) {
-        // open file named filename
-
-        // for each line in the file
-            // read the line
-            // print whether or not the line's parenthesis are balanced
-
-        // CLOSE the file
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Boolean balanced = isBalanced(line);
+                System.out.println(balanced);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
@@ -49,7 +57,7 @@ public class ParenSymmetry {
             trues = ps.isBalanced(strToTest);
         }
         printResult(trues, true);
-
+        ps.checkFile("TestStrings0.txt");
     }
 
     private static void printResult(Boolean b0, boolean b) {
@@ -64,3 +72,4 @@ public class ParenSymmetry {
         }
     }
 }
+
